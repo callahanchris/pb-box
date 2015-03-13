@@ -1,0 +1,30 @@
+{
+  "name": "pb-box",
+  "version": "0.0.1",
+  "description": "pb-box",
+  "main": "public/bundle.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/callahanchris/pb-box.git"
+  },
+  "author": "Chris Callahan",
+  "bugs": {
+    "url": "https://github.com/callahanchris/pb-box/issues"
+  },
+  "homepage": "https://github.com/callahanchris/pb-box",
+  "dependencies": {
+    "flux": "^2.0.1",
+    "react": "^0.12.2",
+    "react-router": "^0.12.4"
+  },
+  "devDependencies": {
+    "babel-core": "^4.7.12",
+    "babel-loader": "^4.1.0",
+    "react-hot-loader": "^1.2.3",
+    "webpack": "^1.7.3",
+    "webpack-dev-server": "^1.7.0"
+  }
+}
