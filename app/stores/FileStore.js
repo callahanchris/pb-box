@@ -20,8 +20,9 @@ let _files = List.of(
   {
     id: 1,
     name: 'postcard.png',
-    type: 'image',
-    date: '03/03/2015'
+    type: 'image/png',
+    lastModified: 1423083515000,
+    size: 72290394
   },
   {
     id: 2,
@@ -52,9 +53,18 @@ class FileStore extends EventEmitter {
     this.dispatchToken = AppDispatcher.register((action) => {
       switch(action.type) {
         case ActionTypes.IMPORT_FILES:
-          _files = _files.concat(action.files);
+          _files = _history.last().concat(action.files);
           _history = _history.push(_files);
           this.emitChange();
+          break;
+
+        case ActionTypes.DELETE_FILE:
+          let index = _history.last().indexOf(action.file);
+          if (index >= 0) {
+            _files = _history.last().delete(index);
+            _history = _history.push(_files);
+            this.emitChange();
+          }
           break;
 
         case ActionTypes.UNDO:
@@ -67,8 +77,8 @@ class FileStore extends EventEmitter {
 
         case ActionTypes.REDO:
           if (_trash.size > 0) {
-            _history = _history.push(_trash.first());
-            _trash = _trash.shift();
+            _history = _history.push(_trash.last());
+            _trash = _trash.pop();
             this.emitChange();
           }
           break;
