@@ -4,49 +4,50 @@ import { EventEmitter } from 'events';
 import { List } from 'immutable';
 
 const CHANGE_EVENT = 'change';
-// {
-//   lastModified: 1423083515000
-//   lastModifiedDate: Wed Feb 04 2015 13:58:35 GMT-0700 (MST)
-//   name: "fig1.tiff"
-//   size: 72290394
-//   type: "image/tiff"
-//   webkitRelativePath: ""
-// }
 
 let _history = List();
 let _trash = List();
 
 let _files = List.of(
   {
-    id: 1,
-    name: 'postcard.png',
-    type: 'image/png',
-    lastModified: 1423083515000,
-    size: 72290394
+    lastModified: 1426293780000,
+    lastModifiedDate: "Fri Mar 13 2015 18:43:00 GMT-0600 (MDT)",
+    name: "candy-apples.jpg",
+    size: 1357774,
+    type: "image/jpeg",
+    webkitRelativePath: "",
+    src: "/public/img/candy-apples.jpg"
   },
   {
-    id: 2,
-    name: 'great-picture.png',
-    type: 'image',
-    date: '03/05/2015'
+    lastModified: 1426293791000,
+    lastModifiedDate: "Fri Mar 13 2015 18:43:11 GMT-0600 (MDT)",
+    name: "park-city.jpg",
+    size: 1104964,
+    type: "image/jpeg",
+    webkitRelativePath: "",
+    src: "/public/img/park-city.jpg"
   },
   {
-    id: 3,
-    name: 'vacation.bmp',
-    type: 'image',
-    date: '03/08/2015'
+    lastModified: 1426293766000,
+    lastModifiedDate: "Fri Mar 13 2015 18:42:46 GMT-0600 (MDT)",
+    name: "provo.jpg",
+    size: 1029338,
+    type: "image/jpeg",
+    webkitRelativePath: "",
+    src: "/public/img/provo.jpg"
   },
   {
-    id: 4,
-    name: 'provo.jpeg',
-    type: 'image',
-    date: '03/11/2015'
+    lastModified: 1426293807000,
+    lastModifiedDate: "Fri Mar 13 2015 18:43:27 GMT-0600 (MDT)",
+    name: "react-week.jpg",
+    size: 1646044,
+    type: "image/jpeg",
+    webkitRelativePath: "",
+    src: "/public/img/react-week.jpg"
   }
 );
 
 _history = _history.push(_files);
-
-let id = 0;
 
 class FileStore extends EventEmitter {
   constructor() {

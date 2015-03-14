@@ -1,28 +1,42 @@
 import React from 'react';
 import FileActionCreators from '../actions/FileActionCreators';
-// {
-//   lastModified: 1423083515000
-//   lastModifiedDate: Wed Feb 04 2015 13:58:35 GMT-0700 (MST)
-//   name: "fig1.tiff"
-//   size: 72290394
-//   type: "image/tiff"
-//   webkitRelativePath: ""
-// }
+
 const FileCard = React.createClass({
   propTypes: {
     file: React.PropTypes.object.isRequired
   },
 
-  handleClick(file) {
+  getInitialState() {
+    return {
+      isOpen: false
+    };
+  },
+
+  handleToggle() {
+    console.log('toggle', this.state)
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  },
+
+  handleDelete(file) {
     FileActionCreators.deleteFile(file);
   },
 
   render() {
     let kb = Math.floor(this.props.file.size / 1000);
-    let mb = Math.floor(kb / 1000);
+    let hundredKb = Math.floor(kb / 100);
     let size = null;
     if (this.props.file.size) {
-      size = mb >= 1 ? mb + ' MB' : kb + ' KB';
+      if (hundredKb >= 10) {
+        let arr = hundredKb.toString().split('')
+        let last = arr.pop();
+        arr.push('.');
+        arr.push(last);
+        size = arr.join('') + ' MB';
+      } else {
+        size = kb + ' KB';
+      }
     }
 
     let date = new Date(this.props.file.lastModified).toLocaleDateString();
@@ -32,10 +46,26 @@ const FileCard = React.createClass({
     }
 
     return (
-      <li className='file-card'>
-        {this.props.file.name} - {this.props.file.type} - {date} - {size}
-        <button type='button' onClick={this.handleClick.bind(this, this.props.file)}>delete</button>
-      </li>
+      <div className='file-card-container'>
+        <li className='file-card'>
+          <span className='file-card-name pure-u-1-6' onClick={this.handleToggle}>
+            {this.props.file.name}
+          </span>
+          <span className='file-card-type pure-u-1-6' onClick={this.handleToggle}>
+            {this.props.file.type}
+          </span>
+          <span className='file-card-date pure-u-1-6' onClick={this.handleToggle}>
+            {date}
+          </span>
+          <span className='file-card-size pure-u-1-6' onClick={this.handleToggle}>
+            {size}
+          </span>
+          <span className='file-card-button'>
+            <button type='button' onClick={this.handleDelete.bind(this, this.props.file)}>delete</button>
+          </span>
+        </li>
+        {this.state.isOpen && this.props.children}
+      </div>
     )
   }
 });

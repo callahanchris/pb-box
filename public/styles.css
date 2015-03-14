@@ -1,19 +1,78 @@
 .main {
-
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  line-height: 20px;
+  color: #434343;
 }
 
-.logo {
-
-}
-
-.file-view {
-
+.main p {
+  margin-top: 0;
+  margin-bottom: 16px;
 }
 
 .file-list {
+  margin-top: 2 0px;
+  padding-top: 20px;
+  margin-bottom: 16px;
+}
 
+.file-card {
+  text-align: center;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  border-bottom: 1px solid #EEEEEE;
+  min-height: 32px;
+}
+
+.file-card-top-row {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: left;
+}
+
+.file-card-top-row span {
+  margin-left: 60px;
+}
+
+file-image-container{
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  text-align: center;
+}
+
+.file-list-title {
+  text-align: center;
 }
 
 .dropzone {
+  width: 210px;
+  height: 200px;
+  margin: 40px 15px;
+}
 
+.undo-redo button {
+  padding: 20px 40px;
+  margin: 0px 5px;
 }

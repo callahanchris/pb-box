@@ -1,5 +1,6 @@
 import React from 'react';
 import Immutable from 'immutable';
+import UndoRedo from './UndoRedo';
 
 const Dropzone = React.createClass({
   propTypes: {
@@ -93,30 +94,33 @@ const Dropzone = React.createClass({
     };
 
     return (
-      <form
-        style={styles}
-        encType='multipart/form-data'
-        className={this.state.get('isDragActive') ? 'dropzone pure-u-lg-1-5 dropzone-hovered': 'dropzone pure-u-lg-1-5'}
-        onClick={this.onClick}
-        onDragStart={this.onDragStart}
-        onDragEnter={this.onDragEnter}
-        onDragLeave={this.onDragLeave}
-        onDragOver={this.onDragOver}
-        onDrop={this.onDrop}
-      >
-        <span>
-          {' ' + this.props.placeholder.replace('file', 'file' + (this.props.multiple ? 's' : ''))}
-        </span>
-        <input
-          style={{display: 'none'}}
-          type='file'
-          name='file[]'
-          multiple={this.props.multiple}
-          accept={this.props.accept}
-          ref='inputFile'
-          onChange={this.onChange}
-        />
-      </form>
+      <div className='dropzone-container'>
+        <form
+          style={styles}
+          encType='multipart/form-data'
+          className={this.state.get('isDragActive') ? 'dropzone pure-u-lg-1-5 dropzone-hovered': 'dropzone pure-u-lg-1-5'}
+          onClick={this.onClick}
+          onDragStart={this.onDragStart}
+          onDragEnter={this.onDragEnter}
+          onDragLeave={this.onDragLeave}
+          onDragOver={this.onDragOver}
+          onDrop={this.onDrop}
+        >
+          <span>
+            {' ' + this.props.placeholder.replace('file', 'file' + (this.props.multiple ? 's' : ''))}
+          </span>
+          <input
+            style={{display: 'none'}}
+            type='file'
+            name='file[]'
+            multiple={this.props.multiple}
+            accept={this.props.accept}
+            ref='inputFile'
+            onChange={this.onChange}
+          />
+        </form>
+        <UndoRedo />
+      </div>
     );
   }
 });

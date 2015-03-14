@@ -4,7 +4,7 @@ const PreviewSection = React.createClass({
   render() {
     return (
       <div>
-        Preview some pictures
+        Click us, just in case!
       </div>
     );
   }

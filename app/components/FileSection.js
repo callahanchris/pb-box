@@ -24,23 +24,11 @@ const FileSection = React.createClass({
     FileActionCreators.importFiles(files);
   },
 
-  undo(e) {
-    e.preventDefault();
-    FileActionCreators.undo();
-  },
-
-  redo(e) {
-    e.preventDefault();
-    FileActionCreators.redo();
-  },
-
   render() {
     return (
-      <div className='file-view pure-g'>
+      <div className='file-section pure-g'>
         <Dropzone importFiles={this.importFiles} />
         <FileList files={this.state.get('files')} />
-        <button onClick={this.undo}>Undo</button>
-        <button onClick={this.redo}>Redo</button>
       </div>
     );
   },
