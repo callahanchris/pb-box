@@ -66,7 +66,7 @@ class FileStore extends EventEmitter {
           break;
 
         case ActionTypes.REDO:
-          if (_trash.first()) {
+          if (_trash.size > 0) {
             _history = _history.push(_trash.first());
             _trash = _trash.shift();
             this.emitChange();
