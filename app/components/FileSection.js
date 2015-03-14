@@ -5,13 +5,11 @@ import FileStore from '../stores/FileStore';
 import FileActionCreators from '../actions/FileActionCreators';
 import Immutable from 'immutable';
 
-const FileView = React.createClass({
+const FileSection = React.createClass({
   getInitialState() {
-    return {
-      data: Immutable.Map({
-        files: FileStore.getAll()
-      })
-    };
+    return Immutable.Map({
+      files: FileStore.getAll()
+    });
   },
 
   componentDidMount() {
@@ -26,20 +24,30 @@ const FileView = React.createClass({
     FileActionCreators.importFiles(files);
   },
 
+  undo(e) {
+    e.preventDefault();
+    FileActionCreators.undo();
+  },
+
+  redo(e) {
+    e.preventDefault();
+    FileActionCreators.redo();
+  },
+
   render() {
     return (
-      <div className='file-view'>
+      <div className='file-view pure-g'>
         <Dropzone importFiles={this.importFiles} />
-        <FileList files={this.state.data.get('files')} />
+        <FileList files={this.state.get('files')} />
+        <button onClick={this.undo}>Undo</button>
+        <button onClick={this.redo}>Redo</button>
       </div>
     );
   },
 
   _onChange() {
-    this.setState({
-      data: this.state.data.update('files', () => (FileStore.getAll()))
-    });
+    this.replaceState(this.state.update('files', () => (FileStore.getAll())));
   }
 });
 
-module.exports = FileView;
+export default FileSection;

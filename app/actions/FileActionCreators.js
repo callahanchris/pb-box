@@ -8,5 +8,17 @@ export default {
       files
     });
     console.log('files have been imported');
+  },
+
+  undo() {
+    AppDispatcher.dispatch({
+      type: ActionTypes.UNDO
+    });
+  },
+
+  redo() {
+    AppDispatcher.dispatch({
+      type: ActionTypes.REDO
+    });
   }
 };

@@ -57,7 +57,7 @@ const Dropzone = React.createClass({
   },
 
   onDragEnter(e) {
-    this.replaceState(this.state.update('isDragActive', true));
+    this.replaceState(this.state.update('isDragActive', () => true));
     if (this._accept(e.dataTransfer)) {
       e.dataTransfer.dropEffect = 'copy';
       e.preventDefault();
@@ -66,11 +66,11 @@ const Dropzone = React.createClass({
 
   onDragLeave(e) {
     e.preventDefault();
-    this.replaceState(this.state.update('isDragActive', false));
+    this.replaceState(this.state.update('isDragActive', () => false));
   },
 
   onDragOver(e) {
-    this.replaceState(this.state.update('isDragActive', true));
+    this.replaceState(this.state.update('isDragActive', () => true));
     if (this._accept(e.dataTransfer)) {
       e.preventDefault();
       e.dataTransfer.dropEffect = 'copy';
@@ -78,7 +78,7 @@ const Dropzone = React.createClass({
   },
 
   onDrop(e) {
-    this.replaceState(this.state.update('isDragActive', false));
+    this.replaceState(this.state.update('isDragActive', () => false));
     e.stopPropagation();
     if (this._accept(e.dataTransfer)) {
       e.preventDefault();
@@ -89,14 +89,14 @@ const Dropzone = React.createClass({
 
   render() {
     let styles = {
-      borderStyle: this.state.get('isDragActive') ? "solid" : "dashed"
+      borderStyle: this.state.get('isDragActive') ? "solid" : "dashed",
     };
 
     return (
       <form
         style={styles}
         encType='multipart/form-data'
-        className={this.state.get('isDragActive') ? 'dropzone dropzone-hovered': 'dropzone '}
+        className={this.state.get('isDragActive') ? 'dropzone pure-u-lg-1-5 dropzone-hovered': 'dropzone pure-u-lg-1-5'}
         onClick={this.onClick}
         onDragStart={this.onDragStart}
         onDragEnter={this.onDragEnter}
@@ -108,6 +108,7 @@ const Dropzone = React.createClass({
           {' ' + this.props.placeholder.replace('file', 'file' + (this.props.multiple ? 's' : ''))}
         </span>
         <input
+          style={{display: 'none'}}
           type='file'
           name='file[]'
           multiple={this.props.multiple}

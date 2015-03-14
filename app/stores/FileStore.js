@@ -13,6 +13,9 @@ const CHANGE_EVENT = 'change';
 //   webkitRelativePath: ""
 // }
 
+let _history = List();
+let _trash = List();
+
 let _files = List.of(
   {
     id: 1,
@@ -40,6 +43,8 @@ let _files = List.of(
   }
 );
 
+_history = _history.push(_files);
+
 let id = 0;
 
 class FileStore extends EventEmitter {
@@ -48,8 +53,28 @@ class FileStore extends EventEmitter {
       switch(action.type) {
         case ActionTypes.IMPORT_FILES:
           _files = _files.concat(action.files);
+          _history = _history.push(_files);
           this.emitChange();
           break;
+
+        case ActionTypes.UNDO:
+          if (_history.size > 1) {
+            _trash = _trash.push(_history.last());
+            _history = _history.pop();
+            this.emitChange();
+          }
+          break;
+
+        case ActionTypes.REDO:
+          if (_trash.first()) {
+            _history = _history.push(_trash.first());
+            _trash = _trash.shift();
+            this.emitChange();
+          }
+          break;
+
+        default:
+          // noop
       }
     });
   }
@@ -71,7 +96,7 @@ class FileStore extends EventEmitter {
   }
 
   getAll() {
-    return _files.toArray();
+    return _history.last().toArray();
   }
 }
 

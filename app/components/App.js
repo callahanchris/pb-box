@@ -1,12 +1,14 @@
 import React from 'react';
-import FileView from './FileView';
+import FileSection from './FileSection';
+import PreviewSection from './PreviewSection';
 
 const App = React.createClass({
   render() {
     return (
       <div className='main'>
         <h1 className='logo'>Pb Box</h1>
-        <FileView />
+        <FileSection />
+        <PreviewSection />
       </div>
     );
   }
